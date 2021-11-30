@@ -2,7 +2,6 @@ const { Router } = require('express');
 const router = Router();
 const _ = require('underscore');
 
-const books = require('../data.json');
 const Book = require('../models/books');
 
 router.get('/', async (req, res) => {
