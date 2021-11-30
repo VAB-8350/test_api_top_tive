@@ -3,52 +3,29 @@ const router = Router();
 const _ = require('underscore');
 
 const books = require('../data.json');
+const Book = require('../models/books');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const books = await Book.find();
     res.json(books);
 });
 
-router.post('/', (req, res) => {
-    const { title, year, gender } = req.body;
-
-    if (title && year && gender) {
-
-        const id = String(books.length + 1);
-        const newBook = {id, ...req.body};
-        books.push(newBook);
-
-        res.json(books);
-    } else {
-        res.status(500).json({error: 'there was an error.'});
-    };
+router.post('/', async (req, res) => {
+    const bock = new Book(req.body);
+    await bock.save();
+    res.send('saved');
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
-    _.each(books, (book, i) => {
-        if (book.id == id) {
-            books.splice(i, 1);
-        }
-    });
+    await Book.remove({_id: id});
     res.send('deleted');
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { title, year, gender } = req.body;
-    if (title && year && gender) {
-        _.each(books, (book, i) => {
-            if (book.id == id) {
-                book.title = title;
-                book.year = year;
-                book.gender = gender;
-            }
-        });
-        res.json(books);
-    } else{
-        res.status(500).json({error: 'there was an error.'});
-    }
-
+    await Book.update({_id: id}, req.body);
+    res.send('updated')
 });
 
 module.exports = router;
