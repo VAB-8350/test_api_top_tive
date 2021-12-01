@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const { mongo } = require('./keys')
 
+import { createRoles } from './libs/initialSetup'
+createRoles();
+
 //connecting to db
 mongoose.connect(mongo.URI)
     .then(db => console.log('DB connected'))
@@ -20,7 +23,9 @@ app.use(morgan('dev'));
 app.use(express.json());
   
 //routes
-app.use('/api/books', require('./routes/books'));
+app.use('/api/books', require('./routes/books.routes'));
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/users', require('./routes/user.routes'));
 
 //starting the server
 app.listen(app.get('port'), () => {

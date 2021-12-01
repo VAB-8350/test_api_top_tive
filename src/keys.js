@@ -3,3 +3,7 @@ module.exports = {
         URI: 'mongodb://localhost/test_api'
     }
 };
+
+export default {
+    SECRET: 'apitesttoptive'
+}
