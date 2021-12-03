@@ -17,6 +17,6 @@ router.put('/:id', bookCtrl.updateBook);
 module.exports = router;
 
 // restricciones para usuarios (funcionan, pero las retire por test de front)
-//[authjwt.verifyToken, authjwt.isModerator], es del delete
-//[authjwt.verifyToken, authjwt.isAdmin], es de post
-//[authjwt.verifyToken, authjwt.isModerator], es de put
+// [authjwt.verifyToken, authjwt.isModerator], es del delete
+// [authjwt.verifyToken, authjwt.isAdmin], es de post
+// [authjwt.verifyToken, authjwt.isModerator], es de put
