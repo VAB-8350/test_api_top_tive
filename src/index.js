@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const { mongo } = require('./keys')
+const { mongo } = require('./keys');
+const cors = require('cors');
 
 import { createRoles } from './libs/initialSetup'
 createRoles();
@@ -14,13 +15,14 @@ mongoose.connect(mongo.URI)
 
 
 //setings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8000);
 app.set('json spaces', 2);
 
 //middlewares
 app.use(morgan('dev'));
 //app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cors())
   
 //routes
 app.use('/api/books', require('./routes/books.routes'));

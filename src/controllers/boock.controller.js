@@ -4,7 +4,7 @@ const Book = require('../models/books');
 
 export const getBooks = async (req, res) => {
     const books = await Book.find();
-    res.json(books);
+    res.status(200).json(books);
 }
 
 export const getBookId = async (req, res) => {
